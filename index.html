@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src https://api.transitous.org; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Transit Route to KML</title>
+<meta name="description" content="Plan a public transport trip, or paste a Google Maps directions link, and download the route as KML.">
+<link rel="stylesheet" href="vendor/leaflet-1.9.4/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside>
+  <div>
+    <h1>Transit <span>→ KML</span></h1>
+    <p class="sub">Plan a public transport trip, then save it as a KML file for Google Earth, My Maps, OsmAnd or any GIS tool.</p>
+  </div>
+
+  <div>
+    <label class="lbl" for="gmaps">Google Maps link</label>
+    <div class="row">
+      <input id="gmaps" placeholder="Paste a google.com/maps/dir/… link">
+      <button type="button" class="pick primary" id="gmapsGo">Use</button>
+    </div>
+    <p class="sub" id="gmapsHint">Start, destination and time are read from the link, then the same trip is planned here.</p>
+  </div>
+
+  <form id="form" autocomplete="off" class="stack">
+    <div>
+      <label class="lbl" for="from">From</label>
+      <div class="row">
+        <div class="field"><input id="from" placeholder="Station, stop, address or lat,lon"><div class="sugg" hidden></div></div>
+        <button type="button" class="pick" data-pick="from" title="Click the map to set the start">Map</button>
+      </div>
+    </div>
+    <div>
+      <label class="lbl" for="to">To</label>
+      <div class="row">
+        <div class="field"><input id="to" placeholder="Station, stop, address or lat,lon"><div class="sugg" hidden></div></div>
+        <button type="button" class="pick" data-pick="to" title="Click the map to set the destination">Map</button>
+      </div>
+    </div>
+    <div class="row">
+      <div><label class="lbl" for="when">Time</label><input id="when" type="datetime-local"></div>
+      <div class="w120"><label class="lbl" for="arriveBy">Means</label>
+        <select id="arriveBy"><option value="false">Depart</option><option value="true">Arrive by</option></select></div>
+    </div>
+    <div class="row">
+      <button type="button" id="swap">Swap ⇅</button>
+      <button type="submit" class="primary" id="go">Find trips</button>
+    </div>
+  </form>
+
+  <div class="status" id="status"></div>
+  <div id="results"></div>
+
+  <fieldset id="exportBox" hidden>
+    <legend>Export</legend>
+    <label class="chk"><input type="checkbox" id="optWalk" checked> Include walking legs</label>
+    <label class="chk"><input type="checkbox" id="optStops" checked> Boarding and alighting stops</label>
+    <label class="chk"><input type="checkbox" id="optInter"> Intermediate stops</label>
+    <div class="row mt4">
+      <button type="button" class="primary" id="dlOne">Download selected</button>
+      <button type="button" id="dlAll">All options</button>
+    </div>
+  </fieldset>
+
+  <footer>Routing and geocoding by <a href="https://transitous.org" target="_blank" rel="noopener">Transitous</a> (<a href="https://transitous.org/sources/" target="_blank" rel="noopener">data sources</a>). Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors. <a href="https://github.com/yeeeeeeeh/maps-transportation-to-kml" target="_blank" rel="noopener">Source code and contact</a>.</footer>
+</aside>
+<div id="map"></div>
+
+<script src="vendor/leaflet-1.9.4/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
