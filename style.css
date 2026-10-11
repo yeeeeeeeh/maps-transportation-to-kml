@@ -20,6 +20,7 @@
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--fg);font:15px/1.45 var(--f-body);display:grid;grid-template-columns:minmax(320px,420px) 1fr}
 aside{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:16px}
+aside>*{flex-shrink:0}
 h1{font:700 30px/1 var(--f-display);letter-spacing:.01em;margin:0;text-transform:uppercase}
 h1 .tag{background:var(--accent);color:var(--accent-fg);padding:0 6px;border-radius:3px}
 .head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
