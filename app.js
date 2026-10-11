@@ -159,16 +159,16 @@ function areaText(m){
 }
 
 for (const k of ["from","to"]) {
-  const inp=$("#"+k), box=inp.nextElementSibling; let t, items=[], idx=-1;
+  const inp=$("#"+k), box=inp.nextElementSibling; let timer, items=[], idx=-1;
   const close=()=>{box.hidden=true; idx=-1;};
   const choose=m=>{ setPlace(k,{name:m.name,lat:m.lat,lon:m.lon,stopId:m.type==="STOP"?m.id:null}); close(); };
   inp.addEventListener("input",()=>{
-    state[k]=null; clearTimeout(t);
+    state[k]=null; clearTimeout(timer);
     const q=inp.value.trim();
     const ll=q.match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
     if(ll){ state[k]={name:q,lat:+ll[1],lon:+ll[2]}; drawEndpoints(); close(); return; }
     if(q.length<2){close();return;}
-    t=setTimeout(async()=>{
+    timer=setTimeout(async()=>{
       try{
         const c=map.getCenter();
         items=await getJSON(API+"/v1/geocode?numResults=7&text="+encodeURIComponent(q)+"&place="+c.lat.toFixed(4)+","+c.lng.toFixed(4));
@@ -234,8 +234,8 @@ $("#form").addEventListener("submit",async e=>{
       let best=0,bd=Infinity;
       state.itins.forEach((it,i)=>{
         const firstTransit=it.legs.find(l=>!isWalk(l));
-        const t=key==="startTime"&&firstTransit?firstTransit.startTime:it[key];
-        const d=Math.abs(new Date(t)-state.matchTime); if(d<bd){bd=d;best=i;} });
+        const tv=key==="startTime"&&firstTransit?firstTransit.startTime:it[key];
+        const d=Math.abs(new Date(tv)-state.matchTime); if(d<bd){bd=d;best=i;} });
       state.sel=best; state.matchTime=null;
     }
     setStatus(state.itins.length===1?"st.opts.one":"st.opts.other",{n:state.itins.length});
@@ -356,11 +356,11 @@ function renderList(){
     if(i===state.sel){
       const ul=document.createElement("ul"); ul.className="legs";
       it.legs.forEach(l=>{ const li=document.createElement("li");
-        const t=document.createElement("span"); t.className="t"; t.textContent=fmtT(l.startTime);
+        const tm=document.createElement("span"); tm.className="t"; tm.textContent=fmtT(l.startTime);
         const d=document.createElement("span");
         d.textContent=isWalk(l)?t("leg.walkTo",{mode:modeName(l.mode),to:l.to.name}):
           `${lineName(l)}${l.headsign?" → "+l.headsign:""} · `+t("leg.fromTo",{from:l.from.name+(l.from.track?t("leg.plat",{p:l.from.track}):""),to:l.to.name});
-        li.append(t,d); ul.appendChild(li); });
+        li.append(tm,d); ul.appendChild(li); });
       b.appendChild(ul);
     }
     b.addEventListener("click",()=>{ state.sel=i; renderList(); showItin(i); });
