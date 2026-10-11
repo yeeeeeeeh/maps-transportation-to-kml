@@ -384,11 +384,15 @@ const legCoords=l=>{
 
 function showItin(i,keepView){
   routeLayer.clearLayers(); const it=state.itins[i]; const all=[];
-  it.legs.forEach(l=>{ const c=legCoords(l); all.push(...c);
-    L.polyline(c,{color:legColor(l),weight:isWalk(l)?4:6,opacity:.9,dashArray:isWalk(l)?"4 8":null})
-      .bindTooltip(esc(isWalk(l)?modeName(l.mode):lineName(l)+(l.headsign?" → "+l.headsign:""))).addTo(routeLayer);
+  // Draw all casings first, then the colored lines, then stop markers, so no leg's casing covers another leg's line.
+  const coords=it.legs.map(l=>{ const c=legCoords(l); all.push(...c); return c; });
+  it.legs.forEach((l,k)=>L.polyline(coords[k],isWalk(l)?{color:"#fff",weight:7,opacity:1,interactive:false}:{color:"#111",weight:11,opacity:.85,interactive:false}).addTo(routeLayer));
+  it.legs.forEach((l,k)=>
+    L.polyline(coords[k],{color:legColor(l),weight:isWalk(l)?5:7,opacity:1,dashArray:isWalk(l)?"4 8":null})
+      .bindTooltip(esc(isWalk(l)?modeName(l.mode):lineName(l)+(l.headsign?" → "+l.headsign:""))).addTo(routeLayer));
+  it.legs.forEach(l=>{
     if(!isWalk(l)) for(const s of [l.from,l.to])
-      L.circleMarker([s.lat,s.lon],{radius:5,weight:2,color:legColor(l),fillColor:"#fff",fillOpacity:1}).bindTooltip(esc(s.name)).addTo(routeLayer);
+      L.circleMarker([s.lat,s.lon],{radius:5,weight:3,color:legColor(l),fillColor:"#fff",fillOpacity:1}).bindTooltip(esc(s.name)).addTo(routeLayer);
   });
   if(all.length&&!keepView) map.fitBounds(L.latLngBounds(all),{padding:[30,30]});
 }

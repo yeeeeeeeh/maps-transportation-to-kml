@@ -70,6 +70,8 @@ footer{font-size:12px;color:var(--muted);margin-top:auto}
 footer a{color:var(--ink)}
 #map{height:100%;min-height:300px}
 .picking #map{cursor:crosshair}
+/* Mute the basemap tiles only, so the route line stands out. */
+.leaflet-tile-pane{filter:grayscale(1) contrast(.75) brightness(1.12)}
 @media (max-width:760px){
   body{grid-template-columns:1fr;grid-template-rows:auto 55vh;height:auto}
   aside{border-right:0;border-bottom:1px solid var(--line);overflow:visible}
