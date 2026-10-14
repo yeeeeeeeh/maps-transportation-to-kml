@@ -22,7 +22,7 @@ const DICT = {
     "export":"Export","opt.walk":"Include walking legs","opt.stops":"Boarding and alighting stops","opt.inter":"Intermediate stops",
     "dl.one":"Download selected","dl.all":"All options",
     "foot.by":"Routing and geocoding by","foot.sources":"data sources","foot.map":"Map ©","foot.contrib":"contributors",
-    "foot.source":"Source code and contact","dot":".",
+    "foot.source":"Source code and contact","tab.map":"Map","tab.gw":"Greenwheels","gw.open":"Open in new tab ↗","gw.note":"If the page stays blank, the site does not allow embedding: use “Open in new tab”.","dot":".",
     "zoom.in":"Zoom in","zoom.out":"Zoom out",
     "tip.from":"From: ","tip.to":"To: ",
     "st.pickFrom":"Click the map to set the start.","st.pickTo":"Click the map to set the destination.",
@@ -65,7 +65,7 @@ const DICT = {
     "export":"匯出","opt.walk":"包含步行路段","opt.stops":"上車與下車站點","opt.inter":"中途站點",
     "dl.one":"下載所選路線","dl.all":"所有選項",
     "foot.by":"路線規劃與地點搜尋:","foot.sources":"資料來源","foot.map":"地圖 ©","foot.contrib":"貢獻者",
-    "foot.source":"原始碼與聯絡方式","dot":"。",
+    "foot.source":"原始碼與聯絡方式","tab.map":"地圖","tab.gw":"Greenwheels","gw.open":"在新分頁開啟 ↗","gw.note":"若頁面保持空白，表示該網站不允許嵌入，請使用「在新分頁開啟」。","dot":"。",
     "zoom.in":"放大","zoom.out":"縮小",
     "tip.from":"起點:","tip.to":"終點:",
     "st.pickFrom":"請在地圖上點選以設定起點。","st.pickTo":"請在地圖上點選以設定終點。",
@@ -483,4 +483,15 @@ function applyLang(next,persist){
   if(persist){ try{ localStorage.setItem("lang",lang); }catch(_){} }
 }
 document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>applyLang(b.dataset.lang,true)));
+
+/* ---------- tabs: map / Greenwheels ---------- */
+// The third-party page loads only once its tab is first opened.
+function showTab(name){
+  const gw=name==="gw", frame=$("#gwFrame");
+  if(gw&&!frame.getAttribute("src")) frame.setAttribute("src",$("#gwOpen").href);
+  $("#map").hidden=gw; $("#gw").hidden=!gw; $("#gwOpen").hidden=!gw;
+  document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===name)));
+  if(!gw) map.invalidateSize();
+}
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
 applyLang(detectLang(),false);

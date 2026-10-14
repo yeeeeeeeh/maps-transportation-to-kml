@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src https://api.transitous.org; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src https://api.transitous.org; frame-src https://ns.greenwheels.com; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Transit Route to KML</title>
 <meta name="description" data-i18n-content="desc" content="Plan a public transport trip, or paste a Google Maps directions link, and download the route as KML.">
@@ -74,7 +74,18 @@
 
   <footer><span data-i18n="foot.by">Routing and geocoding by</span> <a href="https://transitous.org" target="_blank" rel="noopener">Transitous</a> (<a href="https://transitous.org/sources/" target="_blank" rel="noopener" data-i18n="foot.sources">data sources</a>)<span data-i18n="dot">.</span> <span data-i18n="foot.map">Map ©</span> <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> <span data-i18n="foot.contrib">contributors</span><span data-i18n="dot">.</span> <a href="https://github.com/yeeeeeeeh/maps-transportation-to-kml" target="_blank" rel="noopener" data-i18n="foot.source">Source code and contact</a><span data-i18n="dot">.</span></footer>
 </aside>
-<div id="map"></div>
+<main>
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" id="tabMap" data-tab="map" aria-selected="true" aria-controls="map" data-i18n="tab.map">Map</button>
+    <button type="button" role="tab" id="tabGw" data-tab="gw" aria-selected="false" aria-controls="gw" data-i18n="tab.gw">Greenwheels</button>
+    <a id="gwOpen" class="tabs-link" href="https://ns.greenwheels.com/book/search/nl/index?location=" target="_blank" rel="noopener" data-i18n="gw.open" hidden>Open in new tab ↗</a>
+  </div>
+  <div id="map" role="tabpanel" aria-labelledby="tabMap"></div>
+  <div id="gw" role="tabpanel" aria-labelledby="tabGw" hidden>
+    <iframe id="gwFrame" title="Greenwheels" referrerpolicy="no-referrer" sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+    <p class="sub gw-note" data-i18n="gw.note">If the page stays blank, the site does not allow embedding: use “Open in new tab”.</p>
+  </div>
+</main>
 
 <script src="vendor/leaflet-1.9.4/leaflet.js"></script>
 <script src="app.js?v=2"></script>
