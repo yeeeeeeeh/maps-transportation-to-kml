@@ -26,7 +26,7 @@ jobs:
         # Publish only the page and its assets, never the rest of the repository.
         run: |
           mkdir _site
-          cp index.html app.js style.css _site/
+          cp index.html app.js style.css list.html list.js listparse.js list.css _site/
           cp -R vendor _site/
 
       - name: Configure Pages
