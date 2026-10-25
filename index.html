@@ -3,29 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src https://api.transitous.org; frame-src https://ns.greenwheels.com; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src https://api.transitous.org; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Transit Route to KML</title>
 <meta name="description" data-i18n-content="desc" content="Plan a public transport trip, or paste a Google Maps directions link, and download the route as KML.">
 <link rel="stylesheet" href="vendor/leaflet-1.9.4/leaflet.css">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
-<nav class="tabs">
-  <div role="tablist" aria-label="Tools" data-i18n-aria-label="tabs.group">
-    <button type="button" role="tab" data-tab="transit" aria-selected="true" data-i18n="tab.transit">Transit → KML</button>
-    <button type="button" role="tab" data-tab="retire" aria-selected="false" data-i18n="tab.retire">Retirement</button>
-    <button type="button" role="tab" data-tab="gw" aria-selected="false" data-i18n="tab.gw">Greenwheels</button>
-  </div>
-  <div class="lang" role="group" aria-label="Language" data-i18n-aria-label="lang.group">
-    <button type="button" data-lang="en" lang="en" aria-pressed="true" aria-label="English" title="English" data-i18n-aria-label="lang.en" data-i18n-title="lang.en">🇬🇧</button>
-    <button type="button" data-lang="zh-TW" lang="zh-TW" aria-pressed="false" aria-label="繁體中文" title="繁體中文" data-i18n-aria-label="lang.zh-TW" data-i18n-title="lang.zh-TW">🇹🇼</button>
-  </div>
-</nav>
 <aside>
   <div>
     <div class="head">
       <h1><span data-i18n="h1">Transit</span> <span class="tag">→ KML</span></h1>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria-label="lang.group">
+        <button type="button" data-lang="en" lang="en" aria-pressed="true" aria-label="English" title="English" data-i18n-aria-label="lang.en" data-i18n-title="lang.en">🇬🇧</button>
+        <button type="button" data-lang="zh-TW" lang="zh-TW" aria-pressed="false" aria-label="繁體中文" title="繁體中文" data-i18n-aria-label="lang.zh-TW" data-i18n-title="lang.zh-TW">🇹🇼</button>
+      </div>
     </div>
     <p class="sub" data-i18n="sub">Plan a public transport trip, then save it as a KML file for Google Earth, My Maps, OsmAnd or any GIS tool.</p>
   </div>
@@ -82,46 +75,8 @@
   <footer><span data-i18n="foot.by">Routing and geocoding by</span> <a href="https://transitous.org" target="_blank" rel="noopener">Transitous</a> (<a href="https://transitous.org/sources/" target="_blank" rel="noopener" data-i18n="foot.sources">data sources</a>)<span data-i18n="dot">.</span> <span data-i18n="foot.map">Map ©</span> <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> <span data-i18n="foot.contrib">contributors</span><span data-i18n="dot">.</span> <a href="https://github.com/yeeeeeeeh/maps-transportation-to-kml" target="_blank" rel="noopener" data-i18n="foot.source">Source code and contact</a><span data-i18n="dot">.</span></footer>
 </aside>
 <div id="map"></div>
-<main id="retire">
-  <form id="r-form" class="stack" autocomplete="off">
-    <div>
-      <h1><span data-i18n="r.h1">Retirement</span> <span class="tag" data-i18n="r.tag">on dividends</span></h1>
-      <p class="sub" data-i18n="r.sub"></p>
-    </div>
-    <fieldset><legend data-i18n="r.you">You</legend>
-      <div class="grid3"><div><label class="lbl" for="r-age" data-i18n="r.age"></label><input id="r-age" type="number" inputmode="decimal" step="1"></div><div><label class="lbl" for="r-retire" data-i18n="r.retire"></label><input id="r-retire" type="number" inputmode="decimal" step="1"></div><div><label class="lbl" for="r-until" data-i18n="r.until"></label><input id="r-until" type="number" inputmode="decimal" step="1"></div></div>
-      <div class="grid2"><div><label class="lbl" for="r-salary" data-i18n="r.salary"></label><input id="r-salary" type="number" inputmode="decimal" step="100"></div><div><label class="lbl" for="r-raise" data-i18n="r.raise"></label><input id="r-raise" type="number" inputmode="decimal" step="0.1"></div><div><label class="lbl" for="r-invest" data-i18n="r.invest"></label><input id="r-invest" type="number" inputmode="decimal" step="0.5"></div><div><label class="lbl" for="r-start" data-i18n="r.start"></label><input id="r-start" type="number" inputmode="decimal" step="100"></div></div>
-    </fieldset>
-    <fieldset><legend data-i18n="r.goal">Retirement</legend>
-      <div class="grid2"><div><label class="lbl" for="r-cost" data-i18n="r.cost"></label><input id="r-cost" type="number" inputmode="decimal" step="50"></div><div><label class="lbl" for="r-infl" data-i18n="r.infl"></label><input id="r-infl" type="number" inputmode="decimal" step="0.1"></div></div>
-    </fieldset>
-    <fieldset><legend data-i18n="r.market">Investments</legend>
-      <div class="grid2"><div><label class="lbl" for="r-yield" data-i18n="r.yield"></label><input id="r-yield" type="number" inputmode="decimal" step="0.1"></div><div><label class="lbl" for="r-growth" data-i18n="r.growth"></label><input id="r-growth" type="number" inputmode="decimal" step="0.1"></div></div>
-    </fieldset>
-    <fieldset><legend data-i18n="r.box3">Box 3 tax</legend>
-      <label class="chk"><input type="checkbox" id="r-partner"> <span data-i18n="r.partner"></span></label>
-      <p class="lbl sec" data-i18n="r.old"></p>
-      <div class="grid3"><div><label class="lbl" for="r-oRate" data-i18n="r.oRate"></label><input id="r-oRate" type="number" inputmode="decimal" step="0.1"></div><div><label class="lbl" for="r-oDeemed" data-i18n="r.oDeemed"></label><input id="r-oDeemed" type="number" inputmode="decimal" step="0.01"></div><div><label class="lbl" for="r-oFree" data-i18n="r.oFree"></label><input id="r-oFree" type="number" inputmode="decimal" step="100"></div></div>
-      <p class="lbl sec" data-i18n="r.new"></p>
-      <div class="grid2"><div><label class="lbl" for="r-nRate" data-i18n="r.nRate"></label><input id="r-nRate" type="number" inputmode="decimal" step="0.1"></div><div><label class="lbl" for="r-nFree" data-i18n="r.nFree"></label><input id="r-nFree" type="number" inputmode="decimal" step="100"></div></div>
-      <p class="sub" data-i18n="r.box3Hint"></p>
-    </fieldset>
-    <fieldset><legend data-i18n="r.mort">Mortgage</legend>
-      <div><label class="lbl" for="r-mBal" data-i18n="r.mBal"></label><input id="r-mBal" type="number" inputmode="decimal" step="1000"></div>
-      <table class="mtable"><thead><tr><th data-i18n="r.mFrom"></th><th data-i18n="r.mTo"></th><th data-i18n="r.mRate"></th><th data-i18n="r.mPay"></th><th></th></tr></thead><tbody id="r-mRows"></tbody></table>
-      <div><button type="button" class="small" id="r-mAdd" data-i18n="r.mAdd">Add period</button></div>
-      <p class="sub" data-i18n="r.mHint"></p>
-    </fieldset>
-  </form>
-  <div id="r-out" aria-live="polite"></div>
-</main>
-<section id="gw" aria-label="Greenwheels">
-  <div class="gw-bar"><span class="sub gw-note" data-i18n="gw.note">If the page stays blank, the site does not allow embedding: use “Open in new tab”.</span> <a id="gwOpen" href="https://ns.greenwheels.com/book/search/nl/index?location=" target="_blank" rel="noopener" data-i18n="gw.open">Open in new tab ↗</a></div>
-  <iframe id="gwFrame" title="Greenwheels" referrerpolicy="no-referrer" sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
-</section>
 
 <script src="vendor/leaflet-1.9.4/leaflet.js"></script>
-<script src="app.js?v=4"></script>
-<script src="retire.js?v=4"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

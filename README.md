@@ -12,17 +12,6 @@ A small web page that plans a public transport trip and downloads it as a KML fi
 
 Each KML contains one line per leg that follows the actual track, in the line's own colour, with times, platform, operator and line number. It can also include the boarding, alighting and intermediate stops. Legs carry time stamps, so Google Earth's time slider works.
 
-## Retirement calculator
-
-A second tab (`#retire`) works out how big a portfolio must be to pay a monthly cost from dividends alone, and whether your savings get you there by your retirement age.
-
-- Inputs: age, retirement age, net salary, yearly raise, % of salary invested, money already invested, monthly cost in retirement (today's money), inflation, dividend yield and share price growth.
-- Mortgage: today's balance plus periods (from year, to year, interest, monthly payment). An empty payment means a standard annuity that is paid off by the last year. The year-by-year table shows the interest and the amount owed. Payments come out of your salary while you work, and out of the portfolio after you retire.
-- Dutch box 3 tax under both systems, side by side: the old system (tax on a deemed return over the tax-free wealth) and the new one (tax on the actual return, including unrealised price gains, over the tax-free return). Rates and allowances can be edited. Defaults are the 2025 rules and the bill for the new system.
-- Results: the amount needed at retirement, what you will have, the % of salary you would need to invest to get there, when dividends stop covering spending, and how long the money lasts. There is also a chart and a year-by-year table.
-
-Inputs are kept in your browser's local storage. Everything is an estimate with steady yearly returns, not financial advice.
-
 ## How it works
 
 Everything runs in the browser. There is no server, no account and no stored data.
@@ -46,7 +35,7 @@ then open http://localhost:8000. Opening `index.html` straight from disk may blo
 
 ## Deploying
 
-Pushing to `main` runs `.github/workflows/pages.yml`, which publishes only `index.html`, `app.js`, `retire.js`, `style.css` and `vendor/` to GitHub Pages. In the repository settings, **Pages → Build and deployment → Source** must be set to **GitHub Actions**.
+Pushing to `main` runs `.github/workflows/pages.yml`, which publishes only `index.html`, `app.js`, `style.css` and `vendor/` to GitHub Pages. In the repository settings, **Pages → Build and deployment → Source** must be set to **GitHub Actions**.
 
 ## Usage policy
 
