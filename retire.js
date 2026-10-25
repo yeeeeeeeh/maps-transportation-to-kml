@@ -5,6 +5,7 @@
    "new" = tax on actual return incl. unrealised price gains (werkelijk rendement, planned from 2028). */
 Object.assign(DICT.en,{
   "tab.transit":"Transit → KML","tab.retire":"Retirement","tabs.group":"Tools",
+  "tab.gw":"Greenwheels","gw.open":"Open in new tab ↗","gw.note":"If the page stays blank, the site does not allow embedding: use “Open in new tab”.",
   "r.h1":"Retirement","r.tag":"on dividends",
   "r.sub":"How big must your portfolio be to pay a monthly cost from dividends alone, and do your savings get you there? Compared under the old and the new Dutch box 3 tax.",
   "r.you":"You","r.age":"Current age","r.retire":"Retire at age","r.until":"Plan until age",
@@ -40,6 +41,7 @@ Object.assign(DICT.en,{
 });
 Object.assign(DICT["zh-TW"],{
   "tab.transit":"大眾運輸 → KML","tab.retire":"退休試算","tabs.group":"工具",
+  "tab.gw":"Greenwheels","gw.open":"在新分頁開啟 ↗","gw.note":"若頁面保持空白，表示該網站不允許嵌入，請使用「在新分頁開啟」。",
   "r.h1":"退休","r.tag":"靠股息",
   "r.sub":"只靠股息支付每月開銷,需要多少投資組合?你的儲蓄能否達成?並比較荷蘭新舊 Box 3 稅制。",
   "r.you":"個人","r.age":"目前年齡","r.retire":"退休年齡","r.until":"規劃至年齡",
@@ -257,17 +259,20 @@ function recalc(){
 }
 
 /* ---------- tabs ---------- */
+const tabFromHash=()=>({"#retire":"retire","#gw":"gw"})[location.hash]||"transit";
 function showTab(name){
-  const retire=name==="retire";
+  const retire=name==="retire", gw=name==="gw";
   document.body.classList.toggle("tab-retire",retire);
+  document.body.classList.toggle("tab-gw",gw);
+  const frame=$("#gwFrame"); if(gw&&!frame.getAttribute("src")) frame.setAttribute("src",$("#gwOpen").href);
   document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===name)));
-  if(retire) recalc(); else map.invalidateSize();
+  if(retire) recalc(); else if(!gw) map.invalidateSize();
 }
 document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{
-  history.replaceState(null,"",b.dataset.tab==="retire"?"#retire":location.pathname+location.search);
+  history.replaceState(null,"",b.dataset.tab==="retire"||b.dataset.tab==="gw"?"#"+b.dataset.tab:location.pathname+location.search);
   showTab(b.dataset.tab);
 }));
-window.addEventListener("hashchange",()=>showTab(location.hash==="#retire"?"retire":"transit"));
+window.addEventListener("hashchange",()=>showTab(tabFromHash()));
 
 loadInputs();
 $("#r-form").addEventListener("input",recalc);
@@ -278,4 +283,4 @@ $("#r-mAdd").addEventListener("click",()=>{
 });
 document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>{ if(document.body.classList.contains("tab-retire")) recalc(); }));
 applyLang(lang,false);
-showTab(location.hash==="#retire"?"retire":"transit");
+showTab(tabFromHash());

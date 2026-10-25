@@ -3,18 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src https://api.transitous.org; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src https://api.transitous.org; frame-src https://ns.greenwheels.com; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Transit Route to KML</title>
 <meta name="description" data-i18n-content="desc" content="Plan a public transport trip, or paste a Google Maps directions link, and download the route as KML.">
 <link rel="stylesheet" href="vendor/leaflet-1.9.4/leaflet.css">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <nav class="tabs">
   <div role="tablist" aria-label="Tools" data-i18n-aria-label="tabs.group">
     <button type="button" role="tab" data-tab="transit" aria-selected="true" data-i18n="tab.transit">Transit → KML</button>
     <button type="button" role="tab" data-tab="retire" aria-selected="false" data-i18n="tab.retire">Retirement</button>
+    <button type="button" role="tab" data-tab="gw" aria-selected="false" data-i18n="tab.gw">Greenwheels</button>
   </div>
   <div class="lang" role="group" aria-label="Language" data-i18n-aria-label="lang.group">
     <button type="button" data-lang="en" lang="en" aria-pressed="true" aria-label="English" title="English" data-i18n-aria-label="lang.en" data-i18n-title="lang.en">🇬🇧</button>
@@ -114,9 +115,13 @@
   </form>
   <div id="r-out" aria-live="polite"></div>
 </main>
+<section id="gw" aria-label="Greenwheels">
+  <div class="gw-bar"><span class="sub gw-note" data-i18n="gw.note">If the page stays blank, the site does not allow embedding: use “Open in new tab”.</span> <a id="gwOpen" href="https://ns.greenwheels.com/book/search/nl/index?location=" target="_blank" rel="noopener" data-i18n="gw.open">Open in new tab ↗</a></div>
+  <iframe id="gwFrame" title="Greenwheels" referrerpolicy="no-referrer" sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+</section>
 
 <script src="vendor/leaflet-1.9.4/leaflet.js"></script>
-<script src="app.js?v=3"></script>
-<script src="retire.js?v=3"></script>
+<script src="app.js?v=4"></script>
+<script src="retire.js?v=4"></script>
 </body>
 </html>

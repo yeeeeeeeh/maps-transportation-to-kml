@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Maps List to JSON</title>
+<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="list.css?v=1">
+</head>
+<body class="solo">
+<div class="page">
+  <div class="head">
+    <h1><span data-i18n="h1">Maps list</span> <span class="tag">→ JSON</span></h1>
+    <div class="lang" role="group" aria-label="Language" data-i18n-aria-label="lang.group">
+      <button type="button" data-lang="en" lang="en" aria-pressed="true" aria-label="English" title="English">🇬🇧</button>
+      <button type="button" data-lang="zh-TW" lang="zh-TW" aria-pressed="false" aria-label="繁體中文" title="繁體中文">🇹🇼</button>
+    </div>
+  </div>
+  <p class="sub" data-i18n="sub">Turn a shared Google Maps list into a Google Takeout style “Saved Places.json”. Everything runs in your browser; nothing is uploaded.</p>
+
+  <section>
+    <h2 data-i18n="s1">1. Add the bookmarklet (once)</h2>
+    <p class="sub" data-i18n="s1d">Drag this button to your bookmarks bar. If dragging is not possible, copy it and paste it as the URL of a new bookmark.</p>
+    <div class="row">
+      <a id="bm" class="bmlet" href="#" draggable="true" data-i18n="bm">Maps list → JSON</a>
+      <button type="button" id="copyBm" data-i18n="copyBm">Copy bookmarklet</button>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i18n="s2">2. Open your list and click it</h2>
+    <p class="sub" data-i18n="s2d">Open the list link (google.com/maps/placelists/list/… or a maps.app.goo.gl link that opens it) in Google Maps, then click the bookmark. This page opens with the list converted.</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="s3">Or paste the raw list response</h2>
+    <textarea id="raw" rows="5" spellcheck="false" placeholder="Paste the getlist response here" data-i18n-placeholder="raw.ph"></textarea>
+    <div class="row"><button type="button" class="primary" id="convert" data-i18n="convert">Convert</button></div>
+  </section>
+
+  <div class="status" id="status" role="status"></div>
+
+  <section id="outBox" hidden>
+    <h2 id="outTitle"></h2>
+    <pre id="out" tabindex="0"></pre>
+    <div class="row">
+      <button type="button" class="primary" id="dl" data-i18n="dl">Download JSON</button>
+      <button type="button" id="copy" data-i18n="copy">Copy JSON</button>
+    </div>
+  </section>
+
+  <footer><span data-i18n="note">Not affiliated with Google. The list endpoint is unofficial and may change; saved dates are not available, so the export time is used.</span> <a href="index.html" data-i18n="back">Transit route to KML</a></footer>
+</div>
+<script src="listparse.js?v=1"></script>
+<script src="list.js?v=1"></script>
+</body>
+</html>
