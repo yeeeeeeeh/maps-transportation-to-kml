@@ -37,7 +37,29 @@ Object.assign(DICT.en,{
   "c.year":"Year","c.age":"Age","c.salary":"Salary","c.contrib":"Invested","c.spend":"Spent",
   "c.left":"Salary left","c.mInt":"Mortgage interest","c.mPaid":"Mortgage paid","c.mBal":"Mortgage owed",
   "c.wOld":"Portfolio (old)","c.taxOld":"Tax (old)","c.wNew":"Portfolio (new)","c.taxNew":"Tax (new)",
-  "r.disc":"An estimate, not financial advice. Returns are assumed steady every year; real markets are not."
+  "r.disc":"An estimate, not financial advice. Returns are assumed steady every year; real markets are not.",
+  "x.h":"How this is calculated",
+  "x.intro":"Every step below uses the numbers you entered, so you can check it by hand.",
+  "x.s1":"1. Yearly cost when you retire",
+  "x.s1t":"Your monthly cost grows with inflation every year from now until you retire in {year} ({n} years).",
+  "x.mort":"mortgage payments that year",
+  "x.s2":"2. What box 3 takes, per €100 invested",
+  "x.s2t":"Box 3 is charged every year and is paid out of the dividends. This is per €100 above the tax-free amount.",
+  "x.div":"dividend","x.tax":"tax","x.left":"left to spend",
+  "x.s2new":"The new box 3 also taxes the {g} price growth per €100, even though you don't sell, so that tax comes out of the dividends too.",
+  "x.s3":"3. Portfolio needed at retirement",
+  "x.s3t":"The smallest portfolio whose dividends, after box 3 tax, pay the yearly cost from step 1. In {year} the tax-free amounts have grown with inflation to {oFree} (old) and {nFree} (new){partner}.",
+  "x.partner":", for two partners",
+  "x.fOld":"needed = (yearly cost − tax rate × deemed return × tax-free wealth) ÷ (dividend yield − tax rate × deemed return)",
+  "x.fNew":"needed = (yearly cost − tax rate × tax-free return) ÷ (dividend yield − tax rate × (dividend yield + price growth))",
+  "x.noTax":"This is below the tax-free amount, so no box 3 tax: needed = yearly cost ÷ dividend yield.",
+  "x.never":"The bottom of the formula is zero or less: box 3 takes all of the dividends, so no portfolio is big enough.",
+  "x.s4":"4. Year-by-year projection",
+  "x.s4t":"Each year: next year's portfolio = portfolio + dividends + price growth − box 3 tax + invested − spent. While you work, invested = salary × {p}, and the salary rises {r} a year. After you retire, spent = the yearly cost (rising with inflation) plus any mortgage payments. When the dividends after tax fall short, the rest comes from selling shares. \"You will have\" is the portfolio at the start of age {age}. The year-by-year table shows every step.",
+  "x.s5":"5. % of salary needed",
+  "x.s5t":"The projection is run again with different percentages until the portfolio at age {age} just reaches the amount needed.",
+  "x.s6":"6. Mortgage",
+  "x.s6t":"Month by month: interest = balance × rate ÷ 12, and the rest of the payment pays off the loan. A period with no payment filled in uses an annuity, payment = balance × r ÷ (1 − (1 + r)^−n), where r is the monthly rate and n is the months left until the last period ends. The interest deduction (hypotheekrenteaftrek) is not included."
 });
 Object.assign(DICT["zh-TW"],{
   "tab.transit":"大眾運輸 → KML","tab.retire":"退休試算","tabs.group":"工具",
@@ -73,7 +95,29 @@ Object.assign(DICT["zh-TW"],{
   "c.year":"年份","c.age":"年齡","c.salary":"薪資","c.contrib":"投入","c.spend":"支出",
   "c.left":"薪資餘額","c.mInt":"房貸利息","c.mPaid":"房貸支付","c.mBal":"房貸餘額",
   "c.wOld":"投資組合(舊)","c.taxOld":"稅(舊)","c.wNew":"投資組合(新)","c.taxNew":"稅(新)",
-  "r.disc":"僅為估算,並非理財建議。假設每年報酬穩定,但實際市場並非如此。"
+  "r.disc":"僅為估算,並非理財建議。假設每年報酬穩定,但實際市場並非如此。",
+  "x.h":"計算方式",
+  "x.intro":"以下每一步都使用你輸入的數字,可自行驗算。",
+  "x.s1":"1. 退休時的每年開銷",
+  "x.s1t":"每月開銷從現在起每年隨通膨增加,直到 {year} 年退休({n} 年)。",
+  "x.mort":"當年房貸支付",
+  "x.s2":"2. 每投資 €100,Box 3 拿走多少",
+  "x.s2t":"Box 3 每年課稅,並從股息中支付。以下為超過免稅額部分的每 €100。",
+  "x.div":"股息","x.tax":"稅","x.left":"可花用",
+  "x.s2new":"新 Box 3 也對每 €100 的 {g} 股價成長課稅,即使你沒有賣出,這筆稅也要從股息中支付。",
+  "x.s3":"3. 退休時所需的投資組合",
+  "x.s3t":"稅後股息足以支付步驟 1 每年開銷的最小投資組合。{year} 年時免稅額已隨通膨增加為 {oFree}(舊)與 {nFree}(新){partner}。",
+  "x.partner":",兩位伴侶合計",
+  "x.fOld":"所需 = (每年開銷 − 稅率 × 視同報酬率 × 免稅資產)÷(股息殖利率 − 稅率 × 視同報酬率)",
+  "x.fNew":"所需 = (每年開銷 − 稅率 × 免稅報酬)÷(股息殖利率 − 稅率 × (股息殖利率 + 股價成長))",
+  "x.noTax":"低於免稅額,不需繳 Box 3 稅:所需 = 每年開銷 ÷ 股息殖利率。",
+  "x.never":"公式分母為零或負數:Box 3 拿走全部股息,因此投資組合再大也不夠。",
+  "x.s4":"4. 逐年預估",
+  "x.s4t":"每年:下一年投資組合 = 投資組合 + 股息 + 股價成長 − Box 3 稅 + 投入 − 支出。工作期間,投入 = 薪資 × {p},薪資每年增加 {r}。退休後,支出 = 每年開銷(隨通膨增加)加上房貸支付。稅後股息不足時,差額由賣出股票支付。「你將擁有」是 {age} 歲年初的投資組合。逐年明細表列出每一步。",
+  "x.s5":"5. 所需的薪資投資比例",
+  "x.s5t":"以不同比例重新試算,直到 {age} 歲時的投資組合剛好達到所需金額。",
+  "x.s6":"6. 房貸",
+  "x.s6t":"逐月計算:利息 = 餘額 × 利率 ÷ 12,其餘付款用於償還本金。未填每月付款的期間採本息平均攤還,付款 = 餘額 × r ÷ (1 − (1 + r)^−n),r 為月利率,n 為到最後一期結束剩餘的月數。未計入房貸利息扣除額 (hypotheekrenteaftrek)。"
 });
 
 const NOW_YEAR = new Date().getFullYear();
@@ -197,6 +241,39 @@ function analyse(regime,inp,mort){
 }
 
 /* ---------- output ---------- */
+// Step-by-step working with the user's own numbers.
+function explain(inp,o,nw){
+  const pc=v=>Number(v.toFixed(2))+"%", m2=v=>new Intl.NumberFormat(lang==="zh-TW"?"zh-TW":"en-GB",{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(v);
+  const yrs=inp.retire-inp.age, f=Math.pow(1+inp.infl/100,yrs), people=inp.partner?2:1;
+  const cost=o.costYear+o.mPaid, oFree=inp.oFree*people*f, nFree=inp.nFree*people*f;
+  const y=inp.yield, rd=inp.oRate*inp.oDeemed/100, rn=inp.nRate*(inp.yield+inp.growth)/100;
+  const calc=lines=>`<div class="calc">${lines.map(l=>`<div>${esc(l)}</div>`).join("")}</div>`;
+  const step=(h,p,body)=>`<h3>${esc(h)}</h3><p>${esc(p)}</p>${body||""}`;
+  let s1=`${money(inp.cost)} × 12 × (1 + ${pc(inp.infl)})^${yrs} = ${money(o.costYear)}`;
+  if(o.mPaid>0) s1+=` + ${money(o.mPaid)} (${t("x.mort")}) = ${money(cost)}`;
+  const per=tax=>`${t("x.div")} ${m2(y)} − ${t("x.tax")} ${m2(tax)} = ${m2(y-tax)} ${t("x.left")}`;
+  const needLine=(regime,a)=>{
+    const lbl=t(regime==="old"?"r.old":"r.new");
+    if(!Number.isFinite(a.need)) return [lbl+":",t("x.never")];
+    if(Math.abs(a.need-cost/(y/100))<1) return [lbl+":",t("x.noTax"),`${money(cost)} ÷ ${pc(y)} = ${money(a.need)}`];
+    return regime==="old"
+      ? [lbl+":",t("x.fOld"),`(${money(cost)} − ${pc(inp.oRate)} × ${pc(inp.oDeemed)} × ${money(oFree)}) ÷ (${pc(y)} − ${pc(rd)}) = ${money(a.need)}`]
+      : [lbl+":",t("x.fNew"),`(${money(cost)} − ${pc(inp.nRate)} × ${money(nFree)}) ÷ (${pc(y)} − ${pc(inp.nRate)} × ${pc(inp.yield+inp.growth)}) = ${money(a.need)}`];
+  };
+  return `<details class="explain" open><summary>${esc(t("x.h"))}</summary><p class="sub">${esc(t("x.intro"))}</p>
+${step(t("x.s1"),t("x.s1t",{year:o.yr,n:yrs}),calc([s1]))}
+${step(t("x.s2"),t("x.s2t"),calc([
+  `${t("r.old")}: ${t("x.tax")} = ${pc(inp.oRate)} × ${pc(inp.oDeemed)} × €100 = ${m2(rd)}`, per(rd),
+  `${t("r.new")}: ${t("x.tax")} = ${pc(inp.nRate)} × (${pc(y)} + ${pc(inp.growth)}) × €100 = ${m2(rn)}`, per(rn)])
+  +`<p>${esc(t("x.s2new",{g:m2(inp.growth)}))}</p>`)}
+${step(t("x.s3"),t("x.s3t",{year:o.yr,oFree:money(oFree),nFree:money(nFree),partner:inp.partner?t("x.partner"):""}),
+  calc(needLine("old",o))+calc(needLine("new",nw)))}
+${step(t("x.s4"),t("x.s4t",{p:pc(inp.invest),r:pc(inp.raise),age:inp.retire}))}
+${step(t("x.s5"),t("x.s5t",{age:inp.retire}))}
+${step(t("x.s6"),t("x.s6t"))}
+</details>`;
+}
+
 function card(regime,a,inp){
   const legend=t(regime==="old"?"r.old":"r.new");
   if(!Number.isFinite(a.need)) return `<div class="rcard"><h3>${esc(legend)}</h3><p class="rwarn">${esc(t("r.never"))}</p>
@@ -254,6 +331,7 @@ function recalc(){
   $("#r-out").innerHTML=`<p class="rhead">${esc(head+left)}</p>
 <div class="rcards">${card("old",o,inp)}${card("new",nw,inp)}</div>
 <section><h2 class="rsec">${esc(t("r.chart"))}</h2>${chart(inp,o,nw)}</section>
+${explain(inp,o,nw)}
 <details><summary>${esc(t("r.table"))}</summary>${table(o,nw)}</details>
 <p class="sub">${esc(t("r.disc"))}</p>`;
 }
