@@ -17,8 +17,9 @@
 :root[data-theme="dark"]{--bg:#0f1522; --panel:#172033; --fg:#e7ecf5; --muted:#9aa6bd; --line:#2a3550;
   --accent:#f2b63a; --accent-fg:#1a1300; --ink:#8fb0ff; --danger:#ff8a80; color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--fg);font:15px/1.45 var(--f-body);display:grid;grid-template-columns:minmax(320px,420px) 1fr}
+body{background:var(--bg);color:var(--fg);font:15px/1.45 var(--f-body);display:grid;grid-template-columns:minmax(320px,420px) 1fr;grid-template-rows:auto minmax(0,1fr)}
 aside{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:16px}
 aside>*{flex-shrink:0}
 h1{font:700 30px/1 var(--f-display);letter-spacing:.01em;margin:0;text-transform:uppercase}
@@ -74,10 +75,70 @@ footer a{color:var(--ink)}
 /* Mute the basemap tiles only, so the route line stands out. */
 .leaflet-tile-pane{filter:grayscale(1) contrast(.75) brightness(1.12)}
 @media (max-width:760px){
-  body{grid-template-columns:1fr;grid-template-rows:auto 55vh;height:auto}
+  body{grid-template-columns:1fr;grid-template-rows:auto auto 55vh;height:auto}
   aside{border-right:0;border-bottom:1px solid var(--line);overflow:visible}
   #map{height:55vh}
 }
 .stack{display:flex;flex-direction:column;gap:12px}
 .w120{flex:0 0 120px}
 .mt4{margin-top:4px}
+/* Tab bar above both tools; the language switcher sits on its right. */
+.tabs{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 18px;background:var(--panel);border-bottom:1px solid var(--line)}
+.tabs [role=tablist]{display:flex;gap:4px;min-width:0}
+.tabs [role=tab]{border-color:transparent;background:transparent;padding:7px 10px}
+.tabs [role=tab][aria-selected="true"]{border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--ink)}
+/* Retirement tab: replaces the side panel and map. */
+#retire{display:none;grid-column:1/-1;overflow-y:auto;padding:20px 18px;gap:20px;grid-template-columns:minmax(300px,440px) minmax(0,1fr);align-items:start}
+body.tab-retire aside,body.tab-retire #map{display:none}
+body.tab-retire #retire{display:grid}
+#r-form fieldset{gap:10px}
+#r-form input{padding:7px 9px}
+#r-form label.lbl{text-transform:none;letter-spacing:.02em;font-size:14px}
+.grid2,.grid3{display:grid;gap:8px 10px;align-items:end}
+.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+p.lbl.sec{margin:6px 0 0;color:var(--fg)}
+.mtable{width:100%;border-collapse:collapse;table-layout:fixed}
+.mtable th{font:500 12px var(--f-display);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 3px 3px}
+.mtable th:last-child{width:34px}
+.mtable td{padding:2px 3px}
+.mtable input{padding:6px 6px;font-size:14px}
+#retire:focus{outline:none}
+.rsec{font:500 14px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+#r-out{display:flex;flex-direction:column;gap:16px;min-width:0}
+.rhead{margin:0;font-size:16px}
+.rcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.rcard{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;border-top:4px solid var(--ink)}
+.rcard.new{border-top-color:var(--accent)}
+.rcard h3{font:700 18px var(--f-display);letter-spacing:.03em;text-transform:uppercase;margin:0 0 8px}
+.kv{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px solid var(--line)}
+.kv span{color:var(--muted)}
+.kv b{font:500 17px var(--f-mono);font-variant-numeric:tabular-nums}
+.kv.ok b,.rpct.ok{color:#047857}
+.kv.bad b,.rpct.bad,.rwarn{color:var(--danger)}
+.rpct{font-weight:700;margin:8px 0 4px}
+.rnotes{margin:0;padding-left:18px;font-size:13px;color:var(--muted)}
+#r-out svg{width:100%;height:auto;display:block;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.ch-grid{stroke:var(--line)}
+.ch-lbl{fill:var(--muted);font:12px var(--f-mono)}
+.ch-retire{stroke:var(--muted)}
+.ch-old{stroke:var(--ink)}
+.ch-new{stroke:var(--accent)}
+.ch-need-old{fill:var(--panel);stroke:var(--ink)}
+.ch-need-new{fill:var(--panel);stroke:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:13px;color:var(--muted);margin-top:6px}
+.sw{display:inline-block;width:16px;height:4px;border-radius:2px;margin-left:6px}
+.sw.old{background:var(--ink)}.sw.new{background:var(--accent)}
+.sw.need{width:10px;height:10px;border-radius:50%;border:2px solid var(--muted)}
+.sw.retire{height:0;border-top:2px dashed var(--muted)}
+details summary{cursor:pointer;font:500 14px var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tblwrap{overflow-x:auto;margin-top:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.rtable{border-collapse:collapse;font:12px var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rtable th{position:sticky;top:0;background:var(--panel);font:500 12px var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.rtable th,.rtable td{padding:4px 8px;text-align:right;border-bottom:1px solid var(--line)}
+.rtable tr.ret td{background:var(--bg)}
+@media (max-width:760px){
+  body.tab-retire{grid-template-rows:auto auto}
+  #retire{grid-template-columns:1fr;overflow:visible;padding:16px}
+  .tabs{padding:8px 16px}
+}
